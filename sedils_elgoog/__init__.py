@@ -50,7 +50,10 @@ def get_slide_notes_text(slide):
     return text
 
 
-def main(presentation_id=PRESENTATION_ID, remove_all=False, last_is_zero=False, color="LIGHT2"):
+def main(
+    presentation_id=PRESENTATION_ID, remove_all=False, last_is_zero=False, color="LIGHT2",
+    fmt="{n}",  # set the number format, e.g. "#{n}"
+):
     """
     color is one of https://developers.google.com/slides/reference/rest/v1/presentations.pages/other#Page.ThemeColorType
     """
@@ -115,7 +118,7 @@ def main(presentation_id=PRESENTATION_ID, remove_all=False, last_is_zero=False, 
             },
         })
         requests.append(
-            {'insertText': {'objectId': element_id, 'insertionIndex': 0, 'text': f'#{n}'}}
+            {'insertText': {'objectId': element_id, 'insertionIndex': 0, 'text': fmt.format(n=n)}}
         )
         requests.append({  # right-align
             "updateParagraphStyle": {
