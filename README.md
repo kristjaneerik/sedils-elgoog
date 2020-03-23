@@ -5,7 +5,7 @@ Add reversed slide numbers to Google Slides.
 
 # TODOs
 
-- [ ] requirements.txt
+- [x] requirements.txt
 - [ ] make it pip-installable
 - [ ] documentation on installation
 - [ ] documentation on usage
