@@ -64,11 +64,12 @@ def main(
     counted_slides = []
     delete_requests = []
     no_number = set()
-    for i, slide in enumerate(slides):
-        # print(f"- Slide #{i + 1} contains {len(slide.get('pageElements'))} elements")
+    in_supplement = False
+    for slide in slides:
         notes = get_slide_notes_text(slide)
-        # print(f"notes: {notes}")
-        if not "@skip-count@" in notes:
+        if "@supplement-start@" in notes:
+            in_supplement = True
+        if not "@skip-count@" in notes and not in_supplement:
             counted_slides.append(slide)
         if "@no-number@" in notes:
             no_number.add(slide.get("objectId"))
@@ -133,10 +134,11 @@ def main(
             }
         })
 
-    response = slides_service.presentations().batchUpdate(
-        presentationId=presentation_id, body={"requests": requests},
-    ).execute()
-    # print(response.get("replies"))
+    if requests:
+        response = slides_service.presentations().batchUpdate(
+            presentationId=presentation_id, body={"requests": requests},
+        ).execute()
+        # print(response.get("replies"))
 
 
 if __name__ == "__main__":
