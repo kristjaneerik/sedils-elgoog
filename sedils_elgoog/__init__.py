@@ -7,9 +7,6 @@ from google.auth.transport.requests import Request
 
 SCOPES = ["https://www.googleapis.com/auth/presentations"]  # read-write
 
-# The ID of a sample presentation.
-PRESENTATION_ID = "1jvtFxrzqQKiSCqeAm5Nggg-JAReXV5Hf4hjos1yNy9A"
-
 
 def get_presentation(presentation_id):
     creds = None
@@ -51,7 +48,10 @@ def get_slide_notes_text(slide):
 
 
 def main(
-    presentation_id=PRESENTATION_ID, remove_all=False, last_is_zero=False, color="LIGHT2",
+    presentation_id,
+    remove_all=False,  # remove slide numbers that were previously added
+    last_is_zero=False,  # last slide is 0 instead of 1
+    color="LIGHT2",
     fmt="{n}",  # set the number format, e.g. "#{n}"
 ):
     """
@@ -119,7 +119,9 @@ def main(
             },
         })
         requests.append(
-            {'insertText': {'objectId': element_id, 'insertionIndex': 0, 'text': fmt.format(n=n)}}
+            {'insertText': {
+                'objectId': element_id, 'insertionIndex': 0, 'text': fmt.format(n=n, total=total)
+            }}
         )
         requests.append({  # right-align
             "updateParagraphStyle": {
@@ -142,4 +144,4 @@ def main(
 
 
 if __name__ == "__main__":
-    fire.Fire()
+    fire.Fire(main)
