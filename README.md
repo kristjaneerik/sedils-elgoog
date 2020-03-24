@@ -22,7 +22,7 @@ python -m sedils_elgoog 1jvtFxrzqQKiSCqeAm5Nggg-JAReXV5Hf4hjos1yNy9A
 - `--remove-all`: remove all previously added slide numbers
 - `--color=your_color_choice`: one of https://developers.google.com/slides/reference/rest/v1/presentations.pages/other#Page.ThemeColorType
   Applies to all numbers
-- `--fmt`: a Python format string, e.g. `{n}` (the default) or `#{n}/{total}`.
+- `--fmt="your format string"`: a Python format string, e.g. `{n}` (the default) or `#{n}/{total}`.
   You have access to the variables `n` (number of the current slide)
   and `total` (total number of slides)
 
